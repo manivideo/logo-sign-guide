@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>印刷パネルとLEDネオンの業者比較</title>
+<style>
+:root{color-scheme:light;--ink:#293e45;--muted:#65757a;--line:#e0e5e3;--accent:#326779}
+*{box-sizing:border-box}
+body{margin:0;background:#f6f4ed;color:var(--ink);font-family:system-ui,"Yu Gothic UI","Hiragino Sans",sans-serif;line-height:1.65}
+main{max-width:1512px;margin:auto;padding:48px 32px 56px}
+.eyebrow{margin:0 0 10px;color:#647b76;font-size:12px;font-weight:700;letter-spacing:.16em}
+h1{margin:0 0 14px;font-size:clamp(24px,2.5vw,36px);line-height:1.45}
+h2{margin:48px 0 6px;font-size:22px;line-height:1.5}
+h3{margin:28px 0 10px;font-size:16px}
+.note{max-width:1000px;margin:0;color:var(--muted);font-size:14px}
+.lede{margin:0 0 18px;font-size:15px}
+.lede b{color:#1f4f60}
+.toplinks{margin:14px 0 0;font-size:13px}
+.table-wrap{border:1px solid var(--line);border-radius:10px;background:white}
+table{width:100%;border-collapse:separate;border-spacing:0;text-align:left;font-size:14px}
+caption{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+thead th{position:sticky;top:0;z-index:2;padding:16px 14px;background:#e9eeeb;border-bottom:1px solid #d1dad6;font-size:12px;white-space:nowrap}
+thead th:first-child{border-top-left-radius:9px}thead th:last-child{border-top-right-radius:9px}
+tbody td,tbody th{padding:18px 14px;vertical-align:middle;border-bottom:1px solid var(--line)}
+tbody tr:last-child>*{border-bottom:0}
+tbody th{min-width:170px;font-weight:400}
+.shot{display:block;padding:0;border:0;background:none;cursor:zoom-in;border-radius:6px}
+.shot img{display:block;width:230px;height:160px;object-fit:cover;border-radius:6px;background:#edf0ee;font-size:12px}
+.shot:hover img{outline:3px solid #9cc3d6}
+.shot:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.name{font-size:16px;font-weight:700}
+small{display:block;margin-top:6px;color:var(--muted);font-size:12px;font-weight:400;line-height:1.7}
+.price{min-width:170px}.price strong{font-size:16px}
+.lead{min-width:110px}
+.recommended{background:#edf6fc}
+.badge{display:inline-block;margin:5px 0 0 7px;padding:2px 8px;border-radius:4px;background:#d4e9f8;color:#246081;font-size:10px;font-weight:700;vertical-align:middle;white-space:nowrap}
+.warn{color:#9a4a1c}
+a{color:var(--accent);text-underline-offset:4px;overflow-wrap:anywhere}
+a:hover{color:#123f51}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:0;padding:0;list-style:none;counter-reset:c}
+.cards li{background:white;border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:14px;counter-increment:c}
+.cards li::before{content:counter(c);display:inline-grid;place-items:center;width:22px;height:22px;margin-right:8px;border-radius:50%;background:#e9eeeb;font-size:12px;font-weight:700}
+.cards b{font-size:15px}
+.cards small{margin-top:4px}
+.checks{margin:0;padding:16px 20px 16px 40px;background:white;border:1px solid var(--line);border-radius:10px;font-size:14px}
+.checks li{margin:4px 0}
+.template{position:relative;background:white;border:1px solid var(--line);border-radius:10px}
+.template pre{margin:0;padding:18px 20px;white-space:pre-wrap;font-family:inherit;font-size:14px;line-height:1.8}
+.copy{position:absolute;top:12px;right:12px;padding:6px 14px;border:1px solid #b9c9c4;border-radius:6px;background:#f3f6f5;color:var(--ink);font:inherit;font-size:13px;cursor:pointer}
+.copy:hover{background:#e6eeeb}
+.budget{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.budget div{background:white;border:1px solid var(--line);border-radius:10px;padding:14px 18px}
+.budget span{display:block;color:var(--muted);font-size:13px}
+.budget strong{font-size:22px}
+.budget .total{background:#edf6fc;border-color:#c9dfee}
+.footer{margin:28px 2px 0;color:var(--muted);font-size:12px}
+dialog{max-width:min(92vw,1200px);max-height:92vh;padding:0;border:0;border-radius:10px;background:#111;color:white}
+dialog::backdrop{background:rgba(10,20,25,.75)}
+dialog img{display:block;max-width:min(92vw,1200px);max-height:calc(92vh - 48px);object-fit:contain;margin:auto}
+dialog p{margin:0;padding:12px 16px;font-size:13px;display:flex;justify-content:space-between;gap:16px;align-items:center}
+dialog button{padding:4px 12px;border:1px solid #666;border-radius:6px;background:#222;color:white;font:inherit;font-size:13px;cursor:pointer}
+@media(max-width:1200px){main{padding:32px 20px}.table-wrap{overflow-x:auto}table{min-width:1180px}}
+@media(max-width:699px){main{padding:28px 16px}h1{font-size:24px}}
+@media print{main{padding:0}.table-wrap{overflow:visible}table{min-width:0}thead th{position:static}body{background:white}.copy{display:none}}
+</style>
+</head>
+<body><main>
+<p class="eyebrow">VENDOR COMPARISON / PANEL &amp; LED NEON</p>
+<h1>印刷パネルとLEDネオン 業者比較</h1>
+<p class="note">手持ち撮影用の「印刷パネル」と、配信背景用の「LEDネオン（シリコン型）」について、業者ごとの価格・納期・保証を比べました。写真は各業者サイトの作例で、<b>クリックすると拡大して全体を見られます</b>。価格は各社サイトの掲載値で、税込・税別や送料の条件はそろっていません。</p>
+<p class="toplinks"><a href="logo-display-options.html">← 14種類の写真つき一覧に戻る</a></p>
+
+<h2>1. 印刷パネル（手持ち撮影用）</h2>
+<p class="lede">普通の四角なら<b>プリオ</b>、今日中にほしいなら<b>キンコーズ</b>、ロゴの形に切り抜くなら<b>大判プリントの達人</b>。</p>
+<div class="table-wrap" role="region" aria-label="印刷パネル業者の比較表" tabindex="0">
+<table><caption>印刷パネル業者5社の比較（A2サイズ・1枚の場合）</caption>
+<thead><tr><th scope="col">作例写真</th><th scope="col">業者</th><th scope="col">価格（A2・1枚）</th><th scope="col">仕上げ・素材</th><th scope="col">納期</th><th scope="col">向いているケース</th><th scope="col">業者ページ</th></tr></thead>
+<tbody>
+<tr class="recommended"><td><button class="shot" type="button"><img src="https://www.oleshop.net/blog/wp-content/uploads/2023/11/P1120858-2048x2023.jpg" alt="プリオのロゴパネルで記念撮影している作例" referrerpolicy="no-referrer" loading="lazy"></button></td><th scope="row"><span class="name">プリオ</span><span class="badge">第一候補</span></th><td class="price"><strong>2,365円</strong><small>マット紙・税込</small></td><td>7mm発泡パネル<small>丈夫なアルミ複合板もA2で4,422円〜</small></td><td class="lead">16時までの注文で当日発送<small>翌日発送なら送料無料（通常便1,100円）</small></td><td>いちばん安い。普通の四角でよければ第一候補</td><td><a href="https://www.oleshop.net/shopping/panel/" target="_blank" rel="noopener">プリオ ↗</a></td></tr>
+<tr><td><button class="shot" type="button"><img src="https://www.kinkos.co.jp/wp-content/uploads/2022/09/panel_1.png" alt="キンコーズのパネル印刷の作例" referrerpolicy="no-referrer" loading="lazy"></button></td><th scope="row"><span class="name">キンコーズ</span></th><td class="price"><strong>白 4,620円／黒 7,700円</strong><small>税込＋データ出力料660円</small></td><td>マット紙を選べる（同じ料金）<small>2枚以上で10〜20%引き</small></td><td class="lead"><strong>店頭で最短1時間</strong></td><td>すぐほしい。黒い板で側面まで黒くしたい</td><td><a href="https://www.kinkos.co.jp/service/panel/" target="_blank" rel="noopener">キンコーズ ↗</a></td></tr>
+<tr><td><button class="shot" type="button"><img src="https://obanprint110.com/media/thumbnail/703/703/84826b7277665d694ff07252320a69b80b703170" alt="大判プリントの達人のロゴパネルの作例" referrerpolicy="no-referrer" loading="lazy"></button></td><th scope="row"><span class="name">大判プリントの達人</span></th><td class="price"><strong>3,960円〜</strong><small>税込・B3以内・5mm厚の例</small></td><td>マット加工はオプション<small><b>ロゴの形に切り抜ける</b></small></td><td class="lead">6営業日</td><td>四角ではなく、ロゴの形のパネルにしたい</td><td><a href="https://obanprint110.com/category/logopanel.html" target="_blank" rel="noopener">大判プリントの達人 ↗</a></td></tr>
+<tr><td><button class="shot" type="button"><img src="https://pop-asahi.com/wp-content/uploads/2025/09/ed5dec98aa2910e806e7bc34b14db334.png" alt="ポップアサヒのA2パネル（厚み3・5・7mm）の商品画像" referrerpolicy="no-referrer" loading="lazy"></button></td><th scope="row"><span class="name">ポップアサヒ</span></th><td class="price"><strong>1,800円</strong><small>表面加工あり（税込か税別かの記載なし）／両面は3,170円</small></td><td>マットPP加工を選べる<small>厚み3・5・7mm</small></td><td class="lead">2〜3週間<small>校正5〜7営業日＋製作7〜10営業日</small></td><td>両面印刷にしたい</td><td><a href="https://pop-asahi.com/products/pop-display-panel/normal-a/a2panel/" target="_blank" rel="noopener">ポップアサヒ ↗</a></td></tr>
+<tr><td><button class="shot" type="button"><img src="https://www.saiyoubooth.com/wp-content/uploads/240621hand_panel_kv-1.webp" alt="モリアゲのSNS用手持ちパネルの作例" referrerpolicy="no-referrer" loading="lazy"></button></td><th scope="row"><span class="name">モリアゲ</span></th><td class="price"><strong>11,000円〜</strong><small>税込・幅1000×高さ200mm以内</small></td><td>7mmパネル＋ラミネート</td><td class="lead">約10日</td><td>横長のSNS撮影用パネル</td><td><a href="https://www.saiyoubooth.com/all-products/hand_panel/" target="_blank" rel="noopener">モリアゲ ↗</a></td></tr>
+</tbody></table></div>
+
+<h3>注文前に決めること</h3>
+<ol class="cards">
+<li><b>サイズ</b><small>基本はA2（42×59cm）。2人で持つならA1</small></li>
+<li><b>形</b><small>四角か、ロゴの形に切り抜くか</small></li>
+<li><b>厚み</b><small>A2以上なら7mmのほうが反りにくい</small></li>
+<li><b>表面はマット（つや消し）</b><small>照明やフラッシュの照り返しを防ぐ</small></li>
+<li><b>パネルの色</b><small>黒地のデザインなら黒パネルで側面も黒に。白パネルだと白い断面が見える</small></li>
+<li><b>枚数</b><small>角がつぶれやすいので、予備を入れて2〜3枚</small></li>
+<li><b>データ</b><small>ロゴはベクター形式（AI/PDF）で用意し、各社のテンプレートに合わせる</small></li>
+</ol>
+
+<h2>2. LEDネオン（シリコン型）（配信背景用）</h2>
+<p class="lede">条件をそろえて、<b>サンケイディライト・ネオンパーク・ルミデザ</b>の3社に見積もりを取るのがおすすめ。</p>
+<div class="table-wrap" role="region" aria-label="LEDネオン業者の比較表" tabindex="0">
+<table><caption>LEDネオン業者6社の比較（幅60cm前後の場合）</caption>
+<thead><tr><th scope="col">作例写真</th><th scope="col">業者</th><th scope="col">価格</th><th scope="col">電源・調光器</th><th scope="col">納期</th><th scope="col">保証</th><th scope="col">特徴</th><th scope="col">業者ページ</th></tr></thead>
+<tbody>
+<tr class="recommended"><td><button class="shot" type="button"><img src="https://densyoku.sankei-delight.com/wp-content/themes/xeory_extension_child/images/neon/neonsain2_sp3b.jpg" alt="サンケイディライトのLEDネオンサインの作例" referrerpolicy="no-referrer" loading="lazy"></button></td><th scope="row"><span class="name">サンケイディライト</span><span class="badge">見積もり候補</span></th><td class="price"><strong>38,600円</strong><small>60×35cm・税別（税込で約42,500円）</small></td><td><strong>両方込み</strong><small>背板は透明アクリル</small></td><td class="lead">2〜3週間</td><td><strong>屋内3年</strong><small>電源・調光器は1年</small></td><td>保証がいちばん長い</td><td><a href="https://densyoku.sankei-delight.com/" target="_blank" rel="noopener">サンケイディライト ↗</a></td></tr>
+<tr class="recommended"><td><button class="shot" type="button"><img src="https://cdn.shopify.com/s/files/1/0569/6366/1998/files/casestudy_neonsign.jpg?v=1713234787" alt="ネオンパークのオーダーメイドネオンサインの作例" referrerpolicy="no-referrer" loading="lazy"></button></td><th scope="row"><span class="name">ネオンパーク</span><span class="badge">見積もり候補</span></th><td class="price"><strong>約3.5〜5万円</strong><small>60×60cm・税込・送料込</small></td><td class="warn">未確認</td><td class="lead">3週間〜1か月</td><td class="warn">未確認</td><td>価格が手頃</td><td><a href="https://neonpark.jp/pages/original-neon" target="_blank" rel="noopener">ネオンパーク ↗</a></td></tr>
+<tr class="recommended"><td><button class="shot" type="button"><img src="https://illumi-design.com/wp-content/uploads/2025/09/アイキャッチ-1-1536x1151.jpg" alt="ルミデザのLEDネオンサインの作例" referrerpolicy="no-referrer" loading="lazy"></button></td><th scope="row"><span class="name">ルミデザ</span><span class="badge">見積もり候補</span></th><td class="price"><strong>66,000円</strong><small>60×25cm・5色・税込・送料込</small></td><td>調光・タイマー付きコントローラー込み</td><td class="lead">3〜4週間<small>急ぎで約2週間</small></td><td>屋内1年</td><td>色数が多いロゴ向き。画像からの描き起こしは無料</td><td><a href="https://illumi-design.com/service/led-neon-signs/" target="_blank" rel="noopener">ルミデザ ↗</a></td></tr>
+<tr><td><button class="shot" type="button"><img src="https://baseec-img-mng.akamaized.net/images/item/origin/13c595f74d08cd73faad0aaf3bce7d47.jpg?imformat=generic&amp;q=90&amp;im=Resize,width=1280,type=normal" alt="ネオントミーハウスのLEDネオンサインの作例" referrerpolicy="no-referrer" loading="lazy"></button></td><th scope="row"><span class="name">ネオントミーハウス</span></th><td class="price"><strong>36,000円</strong><small>60×23cm（39×53cmは35,000円）・送料無料・税の表記なし</small></td><td>電源付き<small>調光器は不明</small></td><td class="lead"><strong>約14日で発送</strong></td><td>6か月</td><td>早い</td><td><a href="https://tomyhouse.official.ec/" target="_blank" rel="noopener">ネオントミーハウス ↗</a></td></tr>
+<tr><td><button class="shot" type="button"><img src="https://www.labori-sign.jp/wp/wp-content/uploads/2024/11/IMG_7877-scaled-e1730696985557-1024x495.webp" alt="ラボリのLEDネオン文字の作例" referrerpolicy="no-referrer" loading="lazy"></button></td><th scope="row"><span class="name">ラボリ</span></th><td class="price"><strong>約2.5万円〜</strong><small>40×60cm・シンプルなデザイン</small></td><td class="warn"><strong>電源は別売り</strong></td><td class="lead">約2週間</td><td>記載なし</td><td>電源の費用が別にかかる</td><td><a href="https://www.labori-sign.jp/topics/4791/" target="_blank" rel="noopener">ラボリ ↗</a></td></tr>
+<tr><td><button class="shot" type="button"><img src="https://service-cdn.coconala.com/resize/1220/1240/service_images/original/787a698a-6054532.jpg" alt="ココナラ出品者のネオンサイン制作の作例" referrerpolicy="no-referrer" loading="lazy"></button></td><th scope="row"><span class="name">ココナラ（個人の出品）</span></th><td class="price"><strong>13,800円〜</strong><small>60×30cm</small></td><td>出品者による</td><td class="lead">出品者による</td><td>出品者による</td><td>最安。品質と保証は個別に確認が必要</td><td><a href="https://coconala.com/services/3157848" target="_blank" rel="noopener">ココナラ ↗</a></td></tr>
+</tbody></table></div>
+
+<h3>見積もりで確認すること</h3>
+<ul class="checks">
+<li>価格に何が含まれるか（電源、調光器、送料、消費税）</li>
+<li><b>動画撮影でちらつかない調光器か</b>。調光器がLEDを点滅させる速さ（PWM周波数）が1kHz以上あれば、ちらつきにくいとされる</li>
+<li>保証の期間と内容</li>
+<li>デザインを何回まで直せるか、追加費用はかかるか</li>
+<li>電源コードの長さ</li>
+</ul>
+
+<h3>見積もり依頼文（コピペ用）</h3>
+<div class="template">
+<button class="copy" type="button">コピー</button>
+<pre id="tpl">件名：LEDネオンサイン（ロゴ）制作のお見積もり依頼
+
+はじめまして。〇〇株式会社の〇〇と申します。
+自社ロゴのLEDネオンサインの制作を検討しており、お見積もりをお願いいたします。
+
+・用途：屋内。YouTube・配信の撮影背景として壁に設置
+・サイズ：幅60cm前後（ロゴの縦横比に合わせて調整可）
+・デザイン：ロゴデータ（AI/PDF）を添付します。細い線など、ネオンで再現しにくい部分は調整案をご提案ください
+・色：〇色（ロゴの色に合わせたい）
+・背板：アクリル（ロゴの形に沿ったカットを希望。四角でも可）
+・設置方法：壁掛け
+・電源：コンセント、調光器付きを希望
+・希望納期：〇月〇日頃
+
+あわせて、以下も教えてください。
+1. 価格に含まれるもの（電源・調光器・送料・消費税）
+2. 動画撮影でちらつき（横縞）が出にくい調光器か（PWM周波数が分かれば）
+3. 保証期間と内容
+4. デザイン修正の回数と費用
+
+よろしくお願いいたします。</pre>
+</div>
+
+<h2>予算の目安</h2>
+<div class="budget">
+<div><span>印刷パネル（A2×2〜3枚）</span><strong>約5,000〜2万円</strong></div>
+<div><span>LEDネオン（60cm前後）</span><strong>約3.5〜7万円</strong></div>
+<div class="total"><span>合計</span><strong>約4〜9万円</strong></div>
+</div>
+
+<p class="footer">写真は各業者サイトから直接読み込んで表示しています。業者がサイトの写真を差し替えると表示されなくなることがあります。ネオンパークは調査時にサイトが混み合っていて、付属品と保証を確認できていません。</p>
+</main>
+
+<dialog id="viewer" aria-label="写真の拡大表示">
+<img id="viewer-img" alt="" referrerpolicy="no-referrer">
+<p><span id="viewer-cap"></span><button type="button" id="viewer-close">閉じる</button></p>
+</dialog>
+
+<script>
+const viewer=document.getElementById('viewer'),vImg=document.getElementById('viewer-img'),vCap=document.getElementById('viewer-cap');
+document.querySelectorAll('.shot').forEach(b=>b.addEventListener('click',()=>{const i=b.querySelector('img');vImg.src=i.currentSrc||i.src;vImg.alt=i.alt;vCap.textContent=i.alt;viewer.showModal();}));
+document.getElementById('viewer-close').addEventListener('click',()=>viewer.close());
+viewer.addEventListener('click',e=>{if(e.target===viewer||e.target===vImg)viewer.close();});
+document.querySelector('.copy').addEventListener('click',async e=>{const t=document.getElementById('tpl').innerText;try{await navigator.clipboard.writeText(t);}catch(err){const r=document.createRange();r.selectNodeContents(document.getElementById('tpl'));const s=getSelection();s.removeAllRanges();s.addRange(r);document.execCommand('copy');s.removeAllRanges();}e.target.textContent='コピーしました';setTimeout(()=>e.target.textContent='コピー',1800);});
+</script>
+</body></html>
