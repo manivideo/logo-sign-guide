@@ -5,6 +5,7 @@
 - 一覧（概算の安い順）：`logo-display-options.html`
 - 各種類の詳細と概算見積もり：`details/`
 - 印刷パネルとLEDネオンの業者比較：`vendor-comparison.html`
+- BIRDYロゴのLEDネオン相見積もり比較（シリコン型・アクリル型 各5社）：`birdy-neon-quotes.html`（ロゴ画像と完成イメージは `birdy/`）
 
 公開URL：https://manivideo.github.io/logo-sign-guide/
 

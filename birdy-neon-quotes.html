@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BIRDY LEDネオン相見積もり</title>
+<style>
+:root{
+  --ink:#293e45;--muted:#65757a;--line:#e0e5e3;--bg:#f6f4ed;--card:#fff;
+  --head:#e9eeeb;--pick:#edf6fc;--badge-bg:#d4e9f8;--badge-ink:#246081;
+  --green:#008856;--warn-bg:#fff6e5;--warn-ink:#7a4b00;--night:#141518;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,"Yu Gothic UI","Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.75;font-size:15px}
+a{color:#326779}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 16px 64px}
+.back{font-size:13px}
+.kicker{margin:18px 0 0;color:var(--muted);font-size:12px;letter-spacing:.12em}
+h1{margin:4px 0 6px;font-size:28px;line-height:1.35}
+h2{margin:44px 0 10px;font-size:21px;border-left:5px solid var(--green);padding-left:10px;line-height:1.4}
+h3{margin:22px 0 6px;font-size:16px}
+p{margin:8px 0}
+.lead{color:var(--muted);margin:0 0 18px}
+.top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:20px;align-items:stretch}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.logo{display:flex;align-items:center;justify-content:center;background:#fff}
+.logo img{width:100%;max-width:440px;height:auto}
+.spec{margin:0;padding:0;list-style:none}
+.spec li{display:grid;grid-template-columns:7.5em 1fr;gap:8px;padding:5px 0;border-bottom:1px dashed var(--line)}
+.spec li:last-child{border-bottom:0}
+.spec b{color:var(--muted);font-weight:600;font-size:13px}
+.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.sum{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.sum .t{font-size:13px;color:var(--muted)}
+.sum .v{font-size:22px;font-weight:700;margin:2px 0}
+.sum .n{font-size:12.5px;color:var(--muted)}
+.mocks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.mock{background:var(--night);border-radius:10px;overflow:hidden;color:#e8ecef}
+.mock button{all:unset;cursor:zoom-in;display:block}
+.mock img{width:100%;height:auto;display:block}
+.mock .cap{padding:10px 12px 12px;font-size:13px;line-height:1.6}
+.mock .cap b{display:block;font-size:14px;color:#fff;margin-bottom:2px}
+.mock .cap .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:99px;background:#2b3a33;color:#9fe3c0;margin-bottom:4px}
+.note{font-size:12.5px;color:var(--muted)}
+.points{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.point{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.point b{display:block;margin-bottom:2px}
+.warn{background:var(--warn-bg);color:var(--warn-ink);border-radius:10px;padding:12px 14px;margin-top:12px;font-size:14px}
+.tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:980px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left;font-size:13.5px}
+th{background:var(--head);font-size:12.5px;color:#3d5157;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.photo{width:170px}
+.shot{all:unset;cursor:zoom-in;display:block;width:160px;height:112px;border-radius:6px;overflow:hidden;background:#ddd}
+.shot img{width:100%;height:100%;object-fit:cover;display:block}
+.price{font-size:17px;font-weight:700;white-space:nowrap}
+.vendor{font-weight:700;font-size:14.5px}
+.sub{display:block;color:var(--muted);font-size:12px;font-weight:400}
+.badge{display:inline-block;font-size:11px;padding:1px 8px;border-radius:99px;background:var(--badge-bg);color:var(--badge-ink);margin:2px 4px 2px 0;white-space:nowrap}
+.badge.face{background:#dcf3e7;color:#0b6b43}
+.badge.line{background:#ece8f7;color:#4a3d7a}
+.badge.same{background:#fde9d9;color:#8a4a12}
+tr.pick td{background:var(--pick)}
+small{color:var(--muted)}
+ul.tight{margin:6px 0;padding-left:1.2em}
+ul.tight li{margin:2px 0}
+.types{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.type{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.type .shot{width:100%;height:170px;border-radius:0}
+.type .body{padding:12px 14px}
+.type .body b{display:block;font-size:15px}
+.tmpl{position:relative}
+.tmpl pre{white-space:pre-wrap;background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:0;font-family:inherit;font-size:14px;line-height:1.8}
+.copy{position:absolute;top:10px;right:10px;border:1px solid var(--line);background:var(--head);color:var(--ink);border-radius:6px;padding:4px 12px;font-size:13px;cursor:pointer}
+.check{columns:2;column-gap:28px;padding-left:1.2em}
+.check li{break-inside:avoid;margin:4px 0}
+.src{font-size:12.5px;color:var(--muted);padding-left:1.2em}
+.src li{margin:2px 0}
+footer{margin-top:36px;font-size:12.5px;color:var(--muted)}
+dialog{border:0;padding:0;background:transparent;max-width:94vw;max-height:92vh}
+dialog::backdrop{background:rgba(10,14,16,.82)}
+dialog img{max-width:94vw;max-height:84vh;display:block;border-radius:6px;background:#222}
+dialog .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#fff;font-size:13px;padding:8px 2px 0}
+dialog button{border:0;background:#fff;color:var(--ink);border-radius:6px;padding:5px 14px;cursor:pointer}
+@media (max-width:900px){
+  .top,.summary,.mocks,.types,.points{grid-template-columns:1fr}
+  .check{columns:1}
+  h1{font-size:23px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="logo-display-options.html">← ロゴを大きく見せる方法 14種類の一覧</a>
+<p class="kicker">QUOTE COMPARISON</p>
+<h1>BIRDYロゴのLEDネオン 相見積もり比較</h1>
+<p class="lead">シリコン型とアクリル型、それぞれ5社の公開価格から、BIRDYロゴで作った場合の概算を出しました。写真はクリックで拡大できます。</p>
+
+<div class="top">
+  <div class="card logo"><img src="birdy/birdy-logo.jpg" alt="BIRDYのロゴ。緑のBマークと濃いグレーのBIRDYの文字"></div>
+  <div class="card">
+    <ul class="spec">
+      <li><b>比べる前提</b><span>横80cm × 縦約19cm（ロゴの縦横比 約4.3：1。BIRDYの文字の高さは約13cm）</span></li>
+      <li><b>光の色</b><span>Bマーク＝緑、BIRDY＝白（グレーは光らせられないため）</span></li>
+      <li><b>使う場所</b><span>屋内の壁掛け。動画・配信の背景</span></li>
+      <li><b>電源</b><span>コンセント式、調光器付き、1台</span></li>
+      <li><b>金額</b><span>税込の目安。各社の公開価格を前提サイズに当てはめた概算です</span></li>
+    </ul>
+  </div>
+</div>
+
+<div class="summary">
+  <div class="sum"><div class="t">シリコン型（5社）</div><div class="v">約3.5万〜15万円</div><div class="n">4社は3.5〜7万円台。DELIGHTだけ約15万円</div></div>
+  <div class="sum"><div class="t">アクリル型・線で光る（3社）</div><div class="v">約3.5万〜22.5万円</div><div class="n">中身はシリコン型に近いものからガラス管風まで幅が広い</div></div>
+  <div class="sum"><div class="t">アクリル型・面で光る（2社）</div><div class="v">約23万〜28万円</div><div class="n">塗りつぶしのBマークと太い文字をそのまま光らせられる</div></div>
+</div>
+
+<h2>BIRDYロゴだと、どう仕上がるか</h2>
+<p>ロゴを光らせ方の違う3通りで再現したイメージです。実物の写真ではなく、添付のロゴから作った完成イメージです。</p>
+<div class="mocks">
+  <figure class="mock" style="margin:0">
+    <button class="shot-btn" data-full="birdy/birdy-mock-silicone.png" data-cap="イメージ：シリコン型（縁取り＝ダブルライン）"><img src="birdy/birdy-mock-silicone.png" alt="シリコン型で縁取りにしたBIRDYロゴのイメージ"></button>
+    <figcaption class="cap"><span class="tag">シリコン型・線で光るアクリル型</span><b>A. 縁取りで光る</b>Bマークは緑の線で外形をなぞり、文字は白の線で縁取ります。塗りつぶしは再現できません。</figcaption>
+  </figure>
+  <figure class="mock" style="margin:0">
+    <button class="shot-btn" data-full="birdy/birdy-mock-silicone-uv.png" data-cap="イメージ：シリコン型＋背板にUV印刷"><img src="birdy/birdy-mock-silicone-uv.png" alt="シリコン型に背板のUV印刷を足したBIRDYロゴのイメージ"></button>
+    <figcaption class="cap"><span class="tag">シリコン型＋オプション</span><b>B. 縁取り＋背板にUV印刷</b>透明の背板にBマークの緑を印刷し、塗りつぶしを足します。印刷部分は光りません。</figcaption>
+  </figure>
+  <figure class="mock" style="margin:0">
+    <button class="shot-btn" data-full="birdy/birdy-mock-acrylic.png" data-cap="イメージ：アクリル削り出し型（面で光る）"><img src="birdy/birdy-mock-acrylic.png" alt="アクリル削り出しで面ごと光らせたBIRDYロゴのイメージ"></button>
+    <figcaption class="cap"><span class="tag">アクリル型（削り出し）</span><b>C. 面で光る</b>Bマークも文字も、ロゴの形のまま面で光ります。元のロゴにいちばん近い仕上がりです。</figcaption>
+  </figure>
+</div>
+
+<div class="points">
+  <div class="point"><b>グレーの文字は白で光らせる</b>LEDはグレーには光らないため、BIRDYは白か電球色にします。暗い背景の配信画面では白がいちばん読みやすいです。</div>
+  <div class="point"><b>太い文字は「ダブルライン」が元のロゴに近い</b>文字の縁をなぞる方法です。文字の中心を1本の線でなぞる「シングルライン」にすると安くなりますが、細い印象になります。</div>
+  <div class="point"><b>80cm幅をおすすめする理由</b>60cm幅だと文字の高さが約10cmになり、B・R・Dの内側の穴が狭く、縁取りの線が詰まって見えやすくなります。</div>
+  <div class="point"><b>三角の先とBのくびれが近い</b>線で光らせると、再生マークの先端とBの外形の線がくっつきやすい形です（イメージAの右側）。業者にデータを少し調整してもらいます。</div>
+</div>
+
+<h2>「アクリル型」は業者によって中身が違う</h2>
+<p>「アクリル型」という呼び方は業者ごとにばらばらで、大きく3種類あります。見積もりを頼むときは、どの作り方かを必ず確認してください。</p>
+<div class="types">
+  <div class="type">
+    <button class="shot" data-full="https://sugoikanban.com/wp-content/uploads/2026/07/led-sign-price-example-front-lit-840mm.jpg" data-cap="アクリル削り出し・正面発光（DELIGHT）"><img src="https://sugoikanban.com/wp-content/uploads/2026/07/led-sign-price-example-front-lit-840mm.jpg" alt="アクリル削り出しで面ごと光るロゴサイン" referrerpolicy="no-referrer" loading="lazy"></button>
+    <div class="body"><b>① 削り出し・面で光る</b><span class="badge face">イメージC</span>アクリルをロゴの形に削り出し、中のLEDで面ごと光らせます。塗りつぶしのロゴがそのまま光ります。<br><small>DELIGHT、TKBネオン｜約23万〜28万円</small></div>
+  </div>
+  <div class="type">
+    <button class="shot" data-full="https://cdn.shopify.com/s/files/1/0569/6366/1998/files/led-types-2_2x_568364ce-5dcc-43a1-af90-495eec3de9b9.webp?v=1731638661" data-cap="アクリルチューブ（ネオンパーク）"><img src="https://cdn.shopify.com/s/files/1/0569/6366/1998/files/led-types-2_2x_568364ce-5dcc-43a1-af90-495eec3de9b9.webp?v=1731638661" alt="アクリルチューブのLEDネオン" referrerpolicy="no-referrer" loading="lazy"></button>
+    <div class="body"><b>② 太いアクリル管・線で光る</b><span class="badge line">イメージA・B</span>アクリルや樹脂の太い管にLEDを入れたもの。ツヤがあり、ガラス管のネオンに近い見た目です。<br><small>ネオンパーク、ネオンキングダム｜約8.8万〜22.5万円</small></div>
+  </div>
+  <div class="type">
+    <button class="shot" data-full="https://originalgoods.jp/uploads/811LEDACRYLSIGN/LEDACRYLSIGN2%201.png" data-cap="アクリル板＋LEDネオン管（オリジナルグッズ.jp）"><img src="https://originalgoods.jp/uploads/811LEDACRYLSIGN/LEDACRYLSIGN2%201.png" alt="アクリル板にLEDネオン管を付けたサイン" referrerpolicy="no-referrer" loading="lazy"></button>
+    <div class="body"><b>③ アクリル板＋LEDネオン管</b><span class="badge same">ほぼシリコン型</span>レーザーで切ったアクリル板にLEDネオン管を付けたもの。作りはシリコン型とほぼ同じです。<br><small>オリジナルグッズ.jp｜約3.5万円</small></div>
+  </div>
+</div>
+
+<h2>シリコン型 5社（概算の安い順）</h2>
+<div class="tablewrap">
+<table>
+<thead><tr><th>作例</th><th>業者</th><th>BIRDYの概算（税込）</th><th>根拠にした公開価格</th><th>付属・保証</th><th>納期</th><th>どんなものが出るか</th></tr></thead>
+<tbody>
+<tr>
+  <td class="photo"><button class="shot" data-full="https://tabbneon.jp/cdn/shop/files/main_image_1.jpg?height=1024&amp;v=1768400684" data-cap="TABBNEON の施工例"><img src="https://tabbneon.jp/cdn/shop/files/main_image_1.jpg?height=1024&amp;v=1768400684" alt="TABBNEONの施工例" referrerpolicy="no-referrer" loading="lazy"></button></td>
+  <td><span class="vendor">TABBNEON</span><span class="sub">東京・自社工場（韓国に本社）</span></td>
+  <td><span class="price">約3.5〜5.3万円</span><br><small>＋送料</small></td>
+  <td>幅50cm 2〜3万円、幅100cm 4〜6万円（税抜・送料別）。80cm幅に当てはめて計算</td>
+  <td>保証の記載なし。防水仕様、色が流れる演出も可</td>
+  <td>仕様確定後1〜2週間（最短3日）</td>
+  <td>透明アクリル板（7mm厚）にネオン管を付ける標準的な作り。国内工場なので早い</td>
+</tr>
+<tr class="pick">
+  <td class="photo"><button class="shot" data-full="https://cdn.shopify.com/s/files/1/0569/6366/1998/files/silicone-neon-4_2x_63569c03-912b-47fd-a339-914164ce0d65.webp?v=1731638661" data-cap="ネオンパーク：背板にUV印刷したシリコンネオン"><img src="https://cdn.shopify.com/s/files/1/0569/6366/1998/files/silicone-neon-4_2x_63569c03-912b-47fd-a339-914164ce0d65.webp?v=1731638661" alt="背板にUV印刷したネオンパークのシリコンネオン" referrerpolicy="no-referrer" loading="lazy"></button></td>
+  <td><span class="vendor">ネオンパーク</span><span class="sub">シリコン・アクリル両方を作れる</span><span class="badge">UV印刷あり</span></td>
+  <td><span class="price">約4.5〜7万円</span><br><small>送料込（北海道・沖縄・離島は別）</small></td>
+  <td>60×60cm 4.5〜5万円、100×50cm 6〜7万円（税込・送料込、通常便、デザイン「複雑」の場合）</td>
+  <td>リモコン調光器。背板にUV印刷できる。保証1年</td>
+  <td>通常便3週間〜1か月、お急ぎ便2週間（約1万円高い）</td>
+  <td>12色。背板に緑を印刷するイメージBを頼みやすい。同じ店でアクリル型とも比べられる</td>
+</tr>
+<tr>
+  <td class="photo"><button class="shot" data-full="https://densyoku.sankei-delight.com/wp-content/themes/xeory_extension_child/images/neon/neonsain2_sp3b.jpg" data-cap="サンケイディライトの作例"><img src="https://densyoku.sankei-delight.com/wp-content/themes/xeory_extension_child/images/neon/neonsain2_sp3b.jpg" alt="サンケイディライトのLEDネオン作例" referrerpolicy="no-referrer" loading="lazy"></button></td>
+  <td><span class="vendor">サンケイディライト</span><span class="sub">福岡</span><span class="badge">保証3年</span></td>
+  <td><span class="price">約5.2〜6.7万円</span><br><small>＋送料（記載なし）</small></td>
+  <td>70×25cm 47,000円、80×66cm 61,200円（税別、電源・調光器付き）</td>
+  <td>電源・調光器込み。保証は屋内3年（電源・調光器は1年）</td>
+  <td>入金後2〜3週間</td>
+  <td>15色。背板は透明が標準。保証の長さは5社でいちばん</td>
+</tr>
+<tr>
+  <td class="photo"><button class="shot" data-full="https://illumi-design.com/wp-content/uploads/2025/09/アイキャッチ-1-1536x1151.jpg" data-cap="ルミデザの作例"><img src="https://illumi-design.com/wp-content/uploads/2025/09/アイキャッチ-1-1536x1151.jpg" alt="ルミデザのLEDネオン作例" referrerpolicy="no-referrer" loading="lazy"></button></td>
+  <td><span class="vendor">ルミデザ</span><span class="badge">UV印刷あり</span></td>
+  <td><span class="price">6.6万円〜</span><br><small>UV印刷は別見積もり</small></td>
+  <td>最大辺71〜100cm 66,000円〜（税込）</td>
+  <td>調光・タイマー付きコントローラー。背板をロゴの形に切るのは無料。保証1年（屋内）</td>
+  <td>デザイン確定後3〜4週間</td>
+  <td>背板の形を選べる（四角・角丸・ロゴの形）。UV印刷とネオンの併用が可</td>
+</tr>
+<tr>
+  <td class="photo"><button class="shot" data-full="https://sugoikanban.com/wp-content/uploads/2026/07/led-neon-tube-sign-price-example-840mm.jpg" data-cap="DELIGHT：ロゴ＋英字7文字・幅840mm・ダブルラインで135,000円（税抜）"><img src="https://sugoikanban.com/wp-content/uploads/2026/07/led-neon-tube-sign-price-example-840mm.jpg" alt="DELIGHTのロゴと英字のLEDネオン、幅840mm" referrerpolicy="no-referrer" loading="lazy"></button></td>
+  <td><span class="vendor">DELIGHT</span><span class="sub">大阪・株式会社ネオンとよはく</span><span class="badge">BIRDYに近い実例あり</span></td>
+  <td><span class="price">約14.9万円</span><br><small>＋送料・金具</small></td>
+  <td>ロゴ＋英字7文字、幅840×高さ170mm、ダブルラインで135,000円（税抜）。BIRDYとほぼ同じ構成</td>
+  <td>色数が増えても価格は同じ。設置金具は別見積もり</td>
+  <td>通常13営業日で出荷（最短7営業日）</td>
+  <td>写真の実例がBIRDYと同じ「マーク＋英字」の横長。仕上がりを想像しやすい</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="note">ほかの候補：ネオントミーハウス（980×515mmの作例で72,000円・送料無料・保証6か月）、日本ネオン（80×60cm 10万円〜・税込送料込）、TKBネオンのチューブ型（W800mm程度 15万円〜・税別）。</p>
+
+<h2>アクリル型 5社（概算の安い順）</h2>
+<div class="tablewrap">
+<table>
+<thead><tr><th>作例</th><th>業者</th><th>作り方</th><th>BIRDYの概算（税込）</th><th>根拠にした公開価格</th><th>付属・保証</th><th>納期</th><th>どんなものが出るか</th></tr></thead>
+<tbody>
+<tr>
+  <td class="photo"><button class="shot" data-full="https://originalgoods.jp/uploads/811LEDACRYLSIGN/LEDACRYLSIGN2%201.png" data-cap="オリジナルグッズ.jp：LEDアクリルネオン管"><img src="https://originalgoods.jp/uploads/811LEDACRYLSIGN/LEDACRYLSIGN2%201.png" alt="オリジナルグッズ.jpのLEDアクリルネオン" referrerpolicy="no-referrer" loading="lazy"></button></td>
+  <td><span class="vendor">オリジナルグッズ.jp</span><span class="sub">大阪から発送・中国製</span></td>
+  <td><span class="badge same">③ 板＋ネオン管</span><br>線で光る</td>
+  <td><span class="price">約3.5万円</span><br><small>送料込</small></td>
+  <td>800×800mm 30,000円＋送料2,200円（税別）</td>
+  <td>専用ACアダプター付き。調光と保証は記載なし</td>
+  <td>入稿後10〜12営業日で発送</td>
+  <td>作りはシリコン型とほぼ同じで最安。色は赤・橙・黄・緑・青・水色・ピンクなどで、白が選べるか要確認</td>
+</tr>
+<tr>
+  <td class="photo"><button class="shot" data-full="https://neonkingdom.jp/wp-content/uploads/%E6%A8%B9%E8%84%82%E3%83%8D%E3%82%AA%E3%83%B3%E9%A2%A8%E3%82%B5%E3%82%A4%E3%83%B3_13.jpg" data-cap="ネオンキングダム：アクリルネオン風サイン"><img src="https://neonkingdom.jp/wp-content/uploads/%E6%A8%B9%E8%84%82%E3%83%8D%E3%82%AA%E3%83%B3%E9%A2%A8%E3%82%B5%E3%82%A4%E3%83%B3_13.jpg" alt="ネオンキングダムのアクリルネオン風サイン" referrerpolicy="no-referrer" loading="lazy"></button></td>
+  <td><span class="vendor">ネオンキングダム</span><span class="sub">東京・株式会社高昇</span></td>
+  <td><span class="badge line">② 太い管</span><br>線で光る</td>
+  <td><span class="price">約8.8〜10万円</span><br><small>＋送料</small></td>
+  <td>1200×300mm 88,300円、700×450mm 99,800円（税込）</td>
+  <td>保証1年。下地はステンレス板・アクリル板などから選ぶ</td>
+  <td>製作開始から約12営業日</td>
+  <td>樹脂のネオン管が180〜360度に光る。白・電球色・緑あり。かまぼこ形やダブルラインを選べる</td>
+</tr>
+<tr class="pick">
+  <td class="photo"><button class="shot" data-full="https://cdn.shopify.com/s/files/1/0569/6366/1998/files/led-types-2_2x_568364ce-5dcc-43a1-af90-495eec3de9b9.webp?v=1731638661" data-cap="ネオンパーク：アクリルチューブネオン"><img src="https://cdn.shopify.com/s/files/1/0569/6366/1998/files/led-types-2_2x_568364ce-5dcc-43a1-af90-495eec3de9b9.webp?v=1731638661" alt="ネオンパークのアクリルチューブネオン" referrerpolicy="no-referrer" loading="lazy"></button></td>
+  <td><span class="vendor">ネオンパーク</span><span class="sub">シリコン型と同じ店で比べられる</span></td>
+  <td><span class="badge line">② 太い管</span><br>線で光る</td>
+  <td><span class="price">約10.5〜22.5万円</span><br><small>送料込</small></td>
+  <td>60×60cm 10.5〜15万円、100×50cm 16.5〜22.5万円（税込・送料込、通常便、「複雑」の場合）。80cm幅はこの間</td>
+  <td>リモコン調光器。UV印刷可。保証1年</td>
+  <td>通常便3週間〜1か月</td>
+  <td>管の太さ15mmでツヤがあり、ガラス管ネオンに近い高級感。シリコン型の2〜3倍の価格</td>
+</tr>
+<tr class="pick">
+  <td class="photo"><button class="shot" data-full="https://sugoikanban.com/wp-content/uploads/2026/07/led-sign-price-example-front-lit-840mm.jpg" data-cap="DELIGHT：アクリル削り出し・正面発光、ロゴ＋英字7文字・幅840mmで198,000円（税抜）"><img src="https://sugoikanban.com/wp-content/uploads/2026/07/led-sign-price-example-front-lit-840mm.jpg" alt="DELIGHTのアクリル削り出し正面発光サイン、幅840mm" referrerpolicy="no-referrer" loading="lazy"></button></td>
+  <td><span class="vendor">DELIGHT</span><span class="sub">大阪・株式会社ネオンとよはく</span><span class="badge">BIRDYに近い実例あり</span></td>
+  <td><span class="badge face">① 削り出し</span><br>面で光る</td>
+  <td><span class="price">約22.9万円</span><br><small>送料込（約1万円）</small></td>
+  <td>ロゴ＋英字7文字、幅840mm、文字の高さ約100mmで198,000円（税抜）＋送料 約1万円</td>
+  <td>単色の塗装込み、側面の色を指定できる。自立ベースは＋5万円</td>
+  <td>通常13営業日で出荷（最短7営業日）</td>
+  <td>Bマークと文字が面で光る（イメージC）。横長のマーク＋英字の実例があり、仕上がりを想像しやすい</td>
+</tr>
+<tr>
+  <td class="photo"><button class="shot" data-full="https://tkbneon.com/wp-content/uploads/2026/03/AL-Letsspoon-2-1-1024x768.jpg" data-cap="TKBネオン：アクリル削り出しのネオン風LEDサイン"><img src="https://tkbneon.com/wp-content/uploads/2026/03/AL-Letsspoon-2-1-1024x768.jpg" alt="TKBネオンのアクリル削り出しサイン" referrerpolicy="no-referrer" loading="lazy"></button></td>
+  <td><span class="vendor">TKBネオン</span><span class="sub">富山・株式会社TKB</span></td>
+  <td><span class="badge face">① 削り出し</span><br>面で光る</td>
+  <td><span class="price">27.5万円〜</span><br><small>送料込</small></td>
+  <td>W800mm程度 250,000円〜（税別、送料・データ作成込み）</td>
+  <td>保証1年。防水仕様にも対応</td>
+  <td>デザイン確定後 約15日〜</td>
+  <td>LEDの色とアクリルの色を組み合わせて発光色を決める。文字ごとに色を変えることもできる</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="warn">「アクリル型」で頼んでも、業者によって①〜③のどれが出てくるかが違います。BIRDYのBマークを塗りつぶしのまま光らせたいなら「①アクリル削り出し・正面発光」と指定してください。</div>
+
+<h2>どれを選ぶか</h2>
+<ul class="tight">
+  <li><b>予算を抑えて配信背景に使う</b>：シリコン型のTABBNEON・ネオンパーク・サンケイディライトで見積もりを取ると、4〜7万円前後で収まる見込みです。</li>
+  <li><b>Bマークの緑の面を残したい</b>：シリコン型＋背板UV印刷（イメージB）なら、ネオンパークかルミデザ。UV印刷の追加料金はどちらも公開されていないので、見積もりで確認します。</li>
+  <li><b>ロゴをそのまま光らせて高級感を出したい</b>：アクリル削り出し（イメージC）のDELIGHT・TKBネオン。シリコン型の4〜5倍の予算が必要です。</li>
+  <li><b>同じ店で2タイプを比べたい</b>：ネオンパークはシリコン型とアクリルチューブ型の両方を作れるので、1回の問い合わせで両方の見積もりを取れます。</li>
+</ul>
+
+<h2>見積もり依頼文（そのまま使えます）</h2>
+<p>〇〇の部分を書き換えて、各社の問い合わせフォームやLINEに貼り付けてください。ロゴはAIかPDFのデータを添付すると、データ作成費がかからないことが多いです。</p>
+<div class="tmpl">
+<button class="copy" data-target="tmpl-silicone">コピー</button>
+<pre id="tmpl-silicone">件名：LEDネオンサイン（自社ロゴ）のお見積もり依頼
+
+株式会社〇〇の〇〇と申します。
+自社ロゴのLEDネオンサインを検討しており、お見積もりをお願いいたします。
+
+■デザイン：添付のロゴ（AI／PDFデータ）
+■サイズ：横80cm × 縦約19cm（ロゴの縦横比のまま）
+■タイプ：シリコンチューブのLEDネオン
+■光の色：Bマーク＝緑、BIRDYの文字＝白（ロゴのグレーは白で光らせる想定です）
+■表現：文字はダブルライン（縁取り）。Bマークは外形を緑の線で、可能なら背板に緑のUV印刷
+■背板：透明アクリル（ロゴの形に切るか長方形か、おすすめをご提案ください）
+■設置：屋内の壁掛け（動画撮影・配信の背景に使います）
+■電源：コンセント式、調光器（リモコン）付き
+■数量：1台
+■希望納期：〇月〇日ごろ
+
+あわせて、次の点も教えてください。
+・税込の総額（本体、データ作成、送料、取り付け金具を含む）
+・制作前に完成イメージ（モックアップ）をいただけるか
+・調光したときに、動画に横縞やちらつきが出ないか（調光器のPWM周波数）
+・保証期間と、故障したときの対応</pre>
+</div>
+<p class="note">アクリル型に頼むときは、「■タイプ」を「アクリル削り出し・正面発光（Bマークと文字を面で光らせる）」、または「アクリルチューブのLEDネオン」に書き換え、「■表現」の行を消してください。</p>
+
+<h2>見積もりが届いたら確認すること</h2>
+<ul class="check">
+  <li>税込の総額か（送料・データ作成費・金具が入っているか）</li>
+  <li>ダブルラインかシングルラインか（同じ条件で比べる）</li>
+  <li>「アクリル型」の場合、①〜③のどの作り方か</li>
+  <li>完成イメージを無料で出してくれるか、何回まで直せるか</li>
+  <li>Bマークの緑と、文字の白の色味（白は色温度も確認）</li>
+  <li>調光器が付くか、動画でちらつかないか（PWM 1kHz以上が目安）</li>
+  <li>保証期間（6か月〜3年まで差がある）</li>
+  <li>電源コードの長さ、スイッチの位置、壁への付け方（ビス穴・ワイヤー）</li>
+</ul>
+
+<h2>出典</h2>
+<ul class="src">
+  <li>TABBNEON 料金・制作ガイド <a href="https://tabbneon.jp/pages/order" target="_blank" rel="noopener">tabbneon.jp/pages/order</a></li>
+  <li>ネオンパーク オリジナルネオン制作 <a href="https://neonpark.jp/pages/original-neon" target="_blank" rel="noopener">neonpark.jp/pages/original-neon</a></li>
+  <li>サンケイディライト LEDネオンサイン <a href="https://densyoku.sankei-delight.com/" target="_blank" rel="noopener">densyoku.sankei-delight.com</a></li>
+  <li>ルミデザ LEDネオンサイン <a href="https://illumi-design.com/service/led-neon-signs/" target="_blank" rel="noopener">illumi-design.com/service/led-neon-signs/</a></li>
+  <li>DELIGHT LEDネオンサインの価格（実例4件） <a href="https://sugoikanban.com/9410" target="_blank" rel="noopener">sugoikanban.com/9410</a></li>
+  <li>DELIGHT LEDサイン（アクリル削り出し）の価格 <a href="https://sugoikanban.com/9379" target="_blank" rel="noopener">sugoikanban.com/9379</a></li>
+  <li>オリジナルグッズ.jp オリジナルLEDアクリルネオン管 <a href="https://originalgoods.jp/product.php?id=1327" target="_blank" rel="noopener">originalgoods.jp/product.php?id=1327</a></li>
+  <li>ネオンキングダム アクリルネオン風サイン <a href="https://neonkingdom.jp/resin-neon/" target="_blank" rel="noopener">neonkingdom.jp/resin-neon/</a></li>
+  <li>TKBネオン 料金について <a href="https://tkbneon.com/price/" target="_blank" rel="noopener">tkbneon.com/price/</a>、ネオン風LEDサイン（アクリル製） <a href="https://tkbneon.com/products/neon-led-sign/" target="_blank" rel="noopener">tkbneon.com/products/neon-led-sign/</a></li>
+  <li>ほかの候補：ネオントミーハウス <a href="https://tomyhouse.official.ec/" target="_blank" rel="noopener">tomyhouse.official.ec</a>、日本ネオン（SIGNARC） <a href="https://signarc.jp/neon-sign.html" target="_blank" rel="noopener">signarc.jp/neon-sign.html</a></li>
+</ul>
+
+<footer>
+金額は各社サイトの公開価格（2026年11月時点の調査）をもとに、横80cm×縦約19cmに当てはめた概算です。税込・税別や送料の条件がそろっていないため、税別の価格は1.1倍して税込にそろえました。実際の金額はデザインの細かさや線の長さで変わるので、注文前に必ず各社の見積もりで確認してください。作例写真の著作権は各業者にあり、各業者のサイトから読み込んで表示しています。BIRDYのイメージ図は、添付のロゴから作った完成予想で、実物の写真ではありません。
+</footer>
+</div>
+
+<dialog id="viewer">
+  <img id="viewer-img" alt="" referrerpolicy="no-referrer">
+  <div class="bar"><span id="viewer-cap"></span><button type="button" id="viewer-close">閉じる</button></div>
+</dialog>
+
+<script>
+(function () {
+  var dlg = document.getElementById('viewer');
+  var img = document.getElementById('viewer-img');
+  var cap = document.getElementById('viewer-cap');
+  document.querySelectorAll('[data-full]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      img.src = btn.getAttribute('data-full');
+      img.alt = btn.getAttribute('data-cap') || '';
+      cap.textContent = btn.getAttribute('data-cap') || '';
+      dlg.showModal();
+    });
+  });
+  document.getElementById('viewer-close').addEventListener('click', function () { dlg.close(); });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+  document.querySelectorAll('.copy').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var text = document.getElementById(b.getAttribute('data-target')).textContent;
+      var done = function () { b.textContent = 'コピーしました'; setTimeout(function () { b.textContent = 'コピー'; }, 1800); };
+      if (navigator.clipboard) { navigator.clipboard.writeText(text).then(done, function () { b.textContent = '選択してコピーしてください'; }); }
+    });
+  });
+})();
+</script>
+</body>
+</html>
