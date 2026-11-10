@@ -7,6 +7,7 @@
 - 印刷パネルとLEDネオンの業者比較：`vendor-comparison.html`
 - BIRDYロゴのLEDネオン相見積もり比較（シリコン型・アクリル型 各5社）：`birdy-neon-quotes.html`（ロゴ画像と完成イメージは `birdy/`）
 - BIRDYロゴをネオンにするときのデザイン案と予算（12通り）：`birdy-neon-designs.html`（完成イメージはロゴから作った合成画像で `birdy/design-*.png`）
+- ポッドキャスト用ネオンサイン 安くておしゃれな候補（Amazonの既製品17点）：`podcast-neon-signs.html`
 
 公開URL：https://manivideo.github.io/logo-sign-guide/
 

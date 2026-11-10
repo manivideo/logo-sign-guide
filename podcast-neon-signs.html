@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ポッドキャスト用ネオンサイン</title>
+<style>
+:root{
+  --ink:#293e45;--muted:#65757a;--line:#e0e5e3;--bg:#f6f4ed;--card:#fff;
+  --head:#e9eeeb;--pick:#edf6fc;--ref:#fbf7e9;--green:#008856;
+  --warn-bg:#fff6e5;--warn-ink:#7a4b00;--night:#141518;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,"Yu Gothic UI","Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.75;font-size:15px}
+a{color:#326779}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 16px 64px}
+.back{font-size:13px}
+.kicker{margin:18px 0 0;color:var(--muted);font-size:12px;letter-spacing:.12em}
+h1{margin:4px 0 6px;font-size:28px;line-height:1.35}
+h2{margin:44px 0 8px;font-size:21px;border-left:5px solid var(--green);padding-left:10px;line-height:1.4}
+p{margin:8px 0}
+.lead{color:var(--muted);margin:0 0 6px}
+.note{font-size:12.5px;color:var(--muted)}
+
+.picks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:12px}
+.pickcard{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.pickcard.top{border:2px solid #7fb3d3}
+.pickcard .shot img{width:100%;aspect-ratio:1;object-fit:cover}
+.pickcard .body{padding:10px 12px 12px;display:flex;flex-direction:column;gap:2px;flex:1}
+.pickcard .why{font-size:12px;color:var(--green);font-weight:700;letter-spacing:.04em}
+.pickcard b{font-size:15px;line-height:1.45}
+.pickcard .v{font-size:20px;font-weight:800}
+.pickcard p{font-size:13px;margin:2px 0 6px}
+.pickcard .go{margin-top:auto;align-self:flex-start}
+
+.tablewrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:10px;margin-top:12px}
+table{border-collapse:collapse;width:100%;min-width:900px}
+th,td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:middle;text-align:left;font-size:13.5px}
+th{background:var(--head);font-size:12.5px;color:#3d5157;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.thumb{width:150px}
+td.thumb img{width:132px;height:132px;object-fit:cover;border-radius:6px}
+tr.pick td{background:var(--pick)}
+tr.ref td{background:var(--ref)}
+td small{display:block;font-size:12px;color:var(--muted);line-height:1.5}
+.name{display:block;font-size:15px;line-height:1.45;margin-top:3px}
+.brand{font-size:12px;color:var(--muted)}
+.memo{margin:4px 0 0;font-size:13px}
+.price{font-size:18px;font-weight:800;white-space:nowrap}
+.nowrap{white-space:nowrap}
+
+.shot{all:unset;cursor:zoom-in;display:block;background:var(--night);border-radius:6px}
+.shot img{display:block}
+.shot:focus-visible{outline:3px solid #7fb3d3;outline-offset:2px}
+
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:99px;white-space:nowrap;font-weight:700}
+.t-pod{background:#d9f0e6;color:#00663f}
+.t-mic{background:#d4e9f8;color:#246081}
+.t-txt{background:#eceeed;color:#4d5d62}
+.t-name{background:#fbe6d4;color:#8a4413}
+.badge{display:inline-block;font-size:11px;padding:1px 8px;border-radius:99px;background:#fff;border:1px solid #b9d6ea;color:#246081;margin-left:4px;white-space:nowrap}
+.badge.r{border-color:#e2cf8f;color:#7a5d00}
+
+.go{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;border-radius:6px;padding:5px 12px;font-size:13px;white-space:nowrap}
+.go:hover{background:#3d5960}
+
+.points{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 18px 12px 34px;margin:12px 0 0}
+.points li{margin:6px 0}
+footer{margin-top:36px;font-size:12.5px;color:var(--muted)}
+
+dialog{border:0;padding:0;background:transparent;max-width:94vw;max-height:92vh}
+dialog::backdrop{background:rgba(10,14,16,.82)}
+dialog img{max-width:94vw;max-height:84vh;display:block;border-radius:6px;background:#222}
+dialog .bar{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#fff;font-size:13px;padding:8px 2px 0}
+dialog button{border:0;background:#fff;color:var(--ink);border-radius:6px;padding:5px 14px;cursor:pointer}
+
+@media (max-width:980px){.picks{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){
+  h1{font-size:23px}
+  .picks{grid-template-columns:minmax(0,1fr)}
+  .pickcard{flex-direction:row}
+  .pickcard .shot{flex:0 0 120px;align-self:flex-start;margin:10px 0 10px 10px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="logo-display-options.html">← ロゴを大きく見せる方法の一覧へ</a>
+<p class="kicker">NEON SIGN PICKS</p>
+<h1>ポッドキャスト用ネオンサイン　安くておしゃれな候補</h1>
+<p class="lead">リンク先の「Podcast」ネオンサイン（14,526円）に近い雰囲気で、もっと安いものをAmazonで探しました。値段は送料込みで、安い順に並べています。</p>
+<p class="note">画像をクリックすると大きく表示します。値段・評価・届く日は2026年11月10日に確認したものです。</p>
+
+<h2>まず見てほしい4つ</h2>
+<div class="picks">
+  <div class="pickcard top">
+    <button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/71ro16-MShL._AC_SL1500_.jpg" data-cap="LIVE ON AIR（丸の中にマイク）／Icando"><img src="https://m.media-amazon.com/images/I/71ro16-MShL._AC_SX400_.jpg" alt="丸い枠の中にマイクとLIVE ON AIRの文字が光るネオンサイン" referrerpolicy="no-referrer"></button>
+    <div class="body">
+      <span class="why">安さ重視でおしゃれ</span>
+      <b>LIVE ON AIR（丸の中にマイク）</b>
+      <span class="v">3,799円</span>
+      <p>送料無料で、Amazonから発送のため2日ほどで届きます。同じデザインがほかの店では7,798円で売られています。</p>
+      <a class="go" href="https://www.amazon.co.jp/dp/B0CL16541X" target="_blank" rel="noopener">Amazonで見る ↗</a>
+    </div>
+  </div>
+  <div class="pickcard">
+    <button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/51hGZE+y6cL._AC_SL1500_.jpg" data-cap="ON AIR（電球色・マイク入り）／Xhuilong"><img src="https://m.media-amazon.com/images/I/51hGZE+y6cL._AC_SX400_.jpg" alt="電球色1色で光るON AIRとマイクのネオンサイン" referrerpolicy="no-referrer"></button>
+    <div class="body">
+      <span class="why">落ち着いた大人っぽさ</span>
+      <b>ON AIR（電球色・マイク入り）</b>
+      <span class="v">6,001円</span>
+      <p>白っぽい電球色の1色だけで光るので、派手になりすぎません。青いマイクの色違いも同じ値段です。</p>
+      <a class="go" href="https://www.amazon.co.jp/dp/B0HHQT5WWK" target="_blank" rel="noopener">Amazonで見る ↗</a>
+    </div>
+  </div>
+  <div class="pickcard">
+    <button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/71JO9514ykL._AC_SL1500_.jpg" data-cap="ON AIR（丸の中にマイク）／MEQGQI"><img src="https://m.media-amazon.com/images/I/71JO9514ykL._AC_SX400_.jpg" alt="丸の中にマイクとON AIRの文字が光るネオンサイン" referrerpolicy="no-referrer"></button>
+    <div class="body">
+      <span class="why">リンク先と同じお店で約半額</span>
+      <b>ON AIR（丸の中にマイク）</b>
+      <span class="v">7,276円</span>
+      <p>リンク先の商品と同じお店（MEQGQI）の別デザインです。作りや雰囲気をそろえたい場合に。</p>
+      <a class="go" href="https://www.amazon.co.jp/dp/B0HL39G4R8" target="_blank" rel="noopener">Amazonで見る ↗</a>
+    </div>
+  </div>
+  <div class="pickcard">
+    <button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/91Sds3DE3LL._AC_SL1500_.jpg" data-cap="Podcast LIVE／MVVRXM"><img src="https://m.media-amazon.com/images/I/91Sds3DE3LL._AC_SX400_.jpg" alt="PodcastとLIVEの文字が光るネオンサイン" referrerpolicy="no-referrer"></button>
+    <div class="body">
+      <span class="why">「Podcast」の文字を入れたい</span>
+      <b>Podcast LIVE</b>
+      <span class="v">9,831円</span>
+      <p>「Podcast」の文字が入るもので、いちばん安い商品です。リンク先より約4,700円安くなります。</p>
+      <a class="go" href="https://www.amazon.co.jp/dp/B0HPXLG1TD" target="_blank" rel="noopener">Amazonで見る ↗</a>
+    </div>
+  </div>
+</div>
+
+<h2>候補の一覧（17点・安い順）</h2>
+<p class="note">
+  <span class="tag t-pod">Podcastの文字</span>
+  <span class="tag t-mic">絵入り</span>
+  <span class="tag t-txt">文字だけ</span>
+  <span class="tag t-name">名前を入れられる</span>
+  　青い行はおすすめ、黄色い行はリンク先の商品です。表は横にスクロールできます。
+</p>
+<div class="tablewrap" role="region" aria-label="ネオンサインの候補一覧" tabindex="0">
+<table>
+<thead><tr><th scope="col">画像</th><th scope="col">商品</th><th scope="col">値段（送料込み）</th><th scope="col">大きさ</th><th scope="col">評価</th><th scope="col">届く日の目安</th><th scope="col">商品ページ</th></tr></thead>
+<tbody>
+
+<tr>
+<td class="thumb"><button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/71peF9eNcaL._AC_SL1500_.jpg" data-cap="ON AIR＋ヘッドホン／Icando"><img src="https://m.media-amazon.com/images/I/71peF9eNcaL._AC_SX300_.jpg" alt="ON AIRの文字とヘッドホンの絵のネオンサイン" loading="lazy" referrerpolicy="no-referrer"></button></td>
+<td><span class="tag t-mic">絵入り</span><b class="name">ON AIR＋ヘッドホン</b><span class="brand">Icando</span><p class="memo">赤と緑。マイクの代わりにヘッドホンの絵が入ります。同じデザインがほかの店では7,798円です。</p></td>
+<td><span class="price">3,599円</span><small>送料無料</small></td>
+<td class="nowrap">42×20cm</td>
+<td class="nowrap">★4.5<small>10件</small></td>
+<td class="nowrap">11月11〜12日<small>Amazonから発送</small></td>
+<td><a class="go" href="https://www.amazon.co.jp/dp/B0CNJZ3QQ9" target="_blank" rel="noopener">Amazonで見る ↗</a></td>
+</tr>
+
+<tr class="pick">
+<td class="thumb"><button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/71ro16-MShL._AC_SL1500_.jpg" data-cap="LIVE ON AIR（丸の中にマイク）／Icando"><img src="https://m.media-amazon.com/images/I/71ro16-MShL._AC_SX300_.jpg" alt="丸い枠の中にマイクとLIVE ON AIRの文字が光るネオンサイン" loading="lazy" referrerpolicy="no-referrer"></button></td>
+<td><span class="tag t-mic">絵入り</span><span class="badge">おすすめ</span><b class="name">LIVE ON AIR（丸の中にマイク）</b><span class="brand">Icando</span><p class="memo">ピンクと青。安くてデザインもしっかりしています。同じデザインがほかの店では7,798円・8,788円、楽天では4,800円台〜です。</p></td>
+<td><span class="price">3,799円</span><small>送料無料</small></td>
+<td class="nowrap">33.5×33.5cm</td>
+<td class="nowrap">★4.0<small>32件</small></td>
+<td class="nowrap">11月11〜12日<small>Amazonから発送</small></td>
+<td><a class="go" href="https://www.amazon.co.jp/dp/B0CL16541X" target="_blank" rel="noopener">Amazonで見る ↗</a></td>
+</tr>
+
+<tr>
+<td class="thumb"><button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/71s+B8xnU-L._AC_SL1500_.jpg" data-cap="ON AIR（文字だけ）／Geewkooy"><img src="https://m.media-amazon.com/images/I/71s+B8xnU-L._AC_SX300_.jpg" alt="ON AIRの文字だけが光るネオンサイン" loading="lazy" referrerpolicy="no-referrer"></button></td>
+<td><span class="tag t-txt">文字だけ</span><b class="name">ON AIR（文字だけ）</b><span class="brand">Geewkooy</span><p class="memo">シンプルな形。評価が488件あり、候補の中でいちばん多く買われています。</p></td>
+<td><span class="price">3,980円</span><small>本体3,534円＋送料446円</small></td>
+<td class="nowrap">40×15cm</td>
+<td class="nowrap">★4.6<small>488件</small></td>
+<td class="nowrap">12月12日ごろ</td>
+<td><a class="go" href="https://www.amazon.co.jp/dp/B098D9S5RQ" target="_blank" rel="noopener">Amazonで見る ↗</a></td>
+</tr>
+
+<tr>
+<td class="thumb"><button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/713Og+vpStL._AC_SL1500_.jpg" data-cap="On Air（文字だけ）／SYLHOME"><img src="https://m.media-amazon.com/images/I/713Og+vpStL._AC_SX300_.jpg" alt="ピンクと水色のOn Airの文字のネオンサイン" loading="lazy" referrerpolicy="no-referrer"></button></td>
+<td><span class="tag t-txt">文字だけ</span><b class="name">On Air（文字だけ）</b><span class="brand">SYLHOME</span><p class="memo">ピンクと水色。評価106件で★4.7と、評判がいちばん良い商品です。</p></td>
+<td><span class="price">4,148円</span><small>本体3,488円＋送料660円</small></td>
+<td class="nowrap">40×25cm</td>
+<td class="nowrap">★4.7<small>106件</small></td>
+<td class="nowrap">11月27日ごろ</td>
+<td><a class="go" href="https://www.amazon.co.jp/dp/B0DWX7DBFH" target="_blank" rel="noopener">Amazonで見る ↗</a></td>
+</tr>
+
+<tr>
+<td class="thumb"><button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/81qprFaRMyL._AC_SL1500_.jpg" data-cap="LIVE ON AIR（4色）／Icando"><img src="https://m.media-amazon.com/images/I/81qprFaRMyL._AC_SX300_.jpg" alt="4色で光るマイクとLIVE ON AIRのネオンサイン" loading="lazy" referrerpolicy="no-referrer"></button></td>
+<td><span class="tag t-mic">絵入り</span><b class="name">LIVE ON AIR（4色）</b><span class="brand">Icando</span><p class="memo">4色を使った、にぎやかな雰囲気。おすすめの商品と同じお店です。</p></td>
+<td><span class="price">4,350円</span><small>送料無料</small></td>
+<td class="nowrap">32.5×32.5cm</td>
+<td class="nowrap">★3.8<small>11件</small></td>
+<td class="nowrap">11月11〜12日<small>Amazonから発送</small></td>
+<td><a class="go" href="https://www.amazon.co.jp/dp/B0BNKZ9MB3" target="_blank" rel="noopener">Amazonで見る ↗</a></td>
+</tr>
+
+<tr class="pick">
+<td class="thumb"><button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/51hGZE+y6cL._AC_SL1500_.jpg" data-cap="ON AIR（電球色・マイク入り）／Xhuilong"><img src="https://m.media-amazon.com/images/I/51hGZE+y6cL._AC_SX300_.jpg" alt="電球色1色で光るON AIRとマイクのネオンサイン" loading="lazy" referrerpolicy="no-referrer"></button></td>
+<td><span class="tag t-mic">絵入り</span><span class="badge">おすすめ</span><b class="name">ON AIR（電球色・マイク入り）</b><span class="brand">Xhuilong</span><p class="memo">電球色の1色だけで、落ち着いた雰囲気。青いマイクの色違いも同じ値段です（<a href="https://www.amazon.co.jp/dp/B0HQGPPPWH" target="_blank" rel="noopener">色違い ↗</a>）。まだ評価はありません。</p></td>
+<td><span class="price">6,001円</span><small>本体5,999円＋送料2円</small></td>
+<td class="nowrap">約42×20cm</td>
+<td class="nowrap">評価なし</td>
+<td class="nowrap">11月24〜29日</td>
+<td><a class="go" href="https://www.amazon.co.jp/dp/B0HHQT5WWK" target="_blank" rel="noopener">Amazonで見る ↗</a></td>
+</tr>
+
+<tr>
+<td class="thumb"><button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/61jNpYqEQuL._AC_SL1500_.jpg" data-cap="ON AIR（マイク入り）／WittyRhE"><img src="https://m.media-amazon.com/images/I/61jNpYqEQuL._AC_SX300_.jpg" alt="マイクの絵が入ったON AIRのネオンサイン" loading="lazy" referrerpolicy="no-referrer"></button></td>
+<td><span class="tag t-mic">絵入り</span><b class="name">ON AIR（マイク入り）</b><span class="brand">WittyRhE</span><p class="memo">マイクの絵が入ったON AIR。評価41件で★4.6。大きさは約20cm角と書かれていて小さめなので、注文前に確認してください。</p></td>
+<td><span class="price">6,070円</span><small>本体5,769円＋送料301円</small></td>
+<td class="nowrap">約20×20cm</td>
+<td class="nowrap">★4.6<small>41件</small></td>
+<td class="nowrap">11月27日〜12月5日</td>
+<td><a class="go" href="https://www.amazon.co.jp/dp/B0DKMT2YMP" target="_blank" rel="noopener">Amazonで見る ↗</a></td>
+</tr>
+
+<tr>
+<td class="thumb"><button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/81kIjfbYu5L._AC_SL1500_.jpg" data-cap="ON AIR（羽根の付いたマイク）／Fespcj"><img src="https://m.media-amazon.com/images/I/81kIjfbYu5L._AC_SX300_.jpg" alt="羽根の付いたマイクとON AIRのネオンサイン" loading="lazy" referrerpolicy="no-referrer"></button></td>
+<td><span class="tag t-mic">絵入り</span><b class="name">ON AIR（羽根の付いたマイク）</b><span class="brand">Fespcj</span><p class="memo">羽根の付いたマイクとON AIRの組み合わせ。評価23件で★4.5です。</p></td>
+<td><span class="price">6,599円</span><small>送料無料</small></td>
+<td class="nowrap">32×23cm</td>
+<td class="nowrap">★4.5<small>23件</small></td>
+<td class="nowrap">11月27日ごろ</td>
+<td><a class="go" href="https://www.amazon.co.jp/dp/B0FC5LZLVD" target="_blank" rel="noopener">Amazonで見る ↗</a></td>
+</tr>
+
+<tr>
+<td class="thumb"><button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/81UNKp1D7EL._AC_SL1500_.jpg" data-cap="ヴィンテージマイク（電球色）／Duxilink"><img src="https://m.media-amazon.com/images/I/81UNKp1D7EL._AC_SX300_.jpg" alt="昔のラジオ風マイクが電球色で光るネオンサイン" loading="lazy" referrerpolicy="no-referrer"></button></td>
+<td><span class="tag t-mic">絵入り</span><b class="name">ヴィンテージマイク（電球色）</b><span class="brand">Duxilink</span><p class="memo">昔のラジオ風マイクを電球色の1色で。いちばん大人っぽいデザインです。アメリカから届く商品です。</p></td>
+<td><span class="price">6,924円</span><small>輸入の手数料が加わる場合あり</small></td>
+<td class="nowrap">32×42.4cm</td>
+<td class="nowrap">★5.0<small>4件</small></td>
+<td class="nowrap">商品ページで確認<small>海外から発送</small></td>
+<td><a class="go" href="https://www.amazon.co.jp/dp/B0HDZ9QJJ5" target="_blank" rel="noopener">Amazonで見る ↗</a></td>
+</tr>
+
+<tr>
+<td class="thumb"><button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/71en8-7E9VL._AC_SL1500_.jpg" data-cap="Born To Yap（ピンクのマイク）／FAXFSIGN"><img src="https://m.media-amazon.com/images/I/71en8-7E9VL._AC_SX300_.jpg" alt="ピンクのマイクとBorn To Yapの文字のネオンサイン" loading="lazy" referrerpolicy="no-referrer"></button></td>
+<td><span class="tag t-mic">絵入り</span><b class="name">Born To Yap（ピンクのマイク）</b><span class="brand">FAXFSIGN</span><p class="memo">「おしゃべりのために生まれた」という意味の英語とピンクのマイク。評価54件で★4.4。アメリカから届く商品です。</p></td>
+<td><span class="price">6,924円</span><small>輸入の手数料が加わる場合あり</small></td>
+<td class="nowrap">33.2×32cm</td>
+<td class="nowrap">★4.4<small>54件</small></td>
+<td class="nowrap">商品ページで確認<small>海外から発送</small></td>
+<td><a class="go" href="https://www.amazon.co.jp/dp/B0HK6KX2DD" target="_blank" rel="noopener">Amazonで見る ↗</a></td>
+</tr>
+
+<tr class="pick">
+<td class="thumb"><button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/71JO9514ykL._AC_SL1500_.jpg" data-cap="ON AIR（丸の中にマイク）／MEQGQI"><img src="https://m.media-amazon.com/images/I/71JO9514ykL._AC_SX300_.jpg" alt="丸の中にマイクとON AIRの文字が光るネオンサイン" loading="lazy" referrerpolicy="no-referrer"></button></td>
+<td><span class="tag t-mic">絵入り</span><span class="badge">おすすめ</span><b class="name">ON AIR（丸の中にマイク）</b><span class="brand">MEQGQI（リンク先と同じお店）</span><p class="memo">リンク先の商品と同じお店の別デザインで、値段は約半分です。まだ評価はありません。</p></td>
+<td><span class="price">7,276円</span><small>送料無料</small></td>
+<td class="nowrap">34×34cm</td>
+<td class="nowrap">評価なし</td>
+<td class="nowrap">11月20〜23日</td>
+<td><a class="go" href="https://www.amazon.co.jp/dp/B0HL39G4R8" target="_blank" rel="noopener">Amazonで見る ↗</a></td>
+</tr>
+
+<tr>
+<td class="thumb"><button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/71Ry+6zPgBL._AC_SL1500_.jpg" data-cap="横顔とマイク／MEQGQI"><img src="https://m.media-amazon.com/images/I/71Ry+6zPgBL._AC_SX300_.jpg" alt="人の横顔とマイクが光るアート風のネオンサイン" loading="lazy" referrerpolicy="no-referrer"></button></td>
+<td><span class="tag t-mic">絵入り</span><b class="name">横顔とマイク</b><span class="brand">MEQGQI（リンク先と同じお店）</span><p class="memo">人の横顔とマイクを線で描いた、アート作品のようなデザイン。文字は入りません。</p></td>
+<td><span class="price">8,940円</span><small>送料無料</small></td>
+<td class="nowrap">44×30cm</td>
+<td class="nowrap">評価なし</td>
+<td class="nowrap">11月20〜23日</td>
+<td><a class="go" href="https://www.amazon.co.jp/dp/B0HR4J5Q69" target="_blank" rel="noopener">Amazonで見る ↗</a></td>
+</tr>
+
+<tr>
+<td class="thumb"><button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/71SMbH5zvML._AC_SL1500_.jpg" data-cap="名前入りスタジオサイン／Kiparfod"><img src="https://m.media-amazon.com/images/I/71SMbH5zvML._AC_SX300_.jpg" alt="丸いバッジの形に名前とPODCAST STUDIOの文字が入ったネオンサイン" loading="lazy" referrerpolicy="no-referrer"></button></td>
+<td><span class="tag t-name">名前を入れられる</span><b class="name">名前入りスタジオサイン</b><span class="brand">Kiparfod</span><p class="memo">丸いバッジの形で、番組名などの文字を入れて作ってもらえます。評価71件で★4.6。大きさは商品ページで選びます。</p></td>
+<td><span class="price">9,772円</span><small>本体9,112円＋送料660円</small></td>
+<td class="nowrap">記載なし</td>
+<td class="nowrap">★4.6<small>71件</small></td>
+<td class="nowrap">11月27日ごろ</td>
+<td><a class="go" href="https://www.amazon.co.jp/dp/B0F93B7LGR" target="_blank" rel="noopener">Amazonで見る ↗</a></td>
+</tr>
+
+<tr class="pick">
+<td class="thumb"><button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/91Sds3DE3LL._AC_SL1500_.jpg" data-cap="Podcast LIVE／MVVRXM"><img src="https://m.media-amazon.com/images/I/91Sds3DE3LL._AC_SX300_.jpg" alt="PodcastとLIVEの文字が光るネオンサイン" loading="lazy" referrerpolicy="no-referrer"></button></td>
+<td><span class="tag t-pod">Podcastの文字</span><span class="badge">おすすめ</span><b class="name">Podcast LIVE</b><span class="brand">MVVRXM</span><p class="memo">「Podcast」の文字が入るもので、いちばん安い商品です。リンク先より約4,700円安くなります。まだ評価はありません。</p></td>
+<td><span class="price">9,831円</span><small>本体9,134円＋送料697円</small></td>
+<td class="nowrap">42×35cm</td>
+<td class="nowrap">評価なし</td>
+<td class="nowrap">11月18〜25日</td>
+<td><a class="go" href="https://www.amazon.co.jp/dp/B0HPXLG1TD" target="_blank" rel="noopener">Amazonで見る ↗</a></td>
+</tr>
+
+<tr>
+<td class="thumb"><button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/71do71fQEvL._AC_SL1500_.jpg" data-cap="マイクと音の波／MEQGQI"><img src="https://m.media-amazon.com/images/I/71do71fQEvL._AC_SX300_.jpg" alt="マイクのまわりに音の波が光るネオンサイン" loading="lazy" referrerpolicy="no-referrer"></button></td>
+<td><span class="tag t-mic">絵入り</span><b class="name">マイクと音の波</b><span class="brand">MEQGQI（リンク先と同じお店）</span><p class="memo">マイクのまわりに音の波を描いたデザイン。50×45cmと大きめで、リンク先に近い大きさです。</p></td>
+<td><span class="price">12,337円</span><small>送料無料</small></td>
+<td class="nowrap">50×45cm</td>
+<td class="nowrap">評価なし</td>
+<td class="nowrap">11月20〜23日</td>
+<td><a class="go" href="https://www.amazon.co.jp/dp/B0HKRHTDMF" target="_blank" rel="noopener">Amazonで見る ↗</a></td>
+</tr>
+
+<tr class="ref">
+<td class="thumb"><button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/71V-KBoSz1L._AC_SL1500_.jpg" data-cap="Podcast（レトロなマイク）／MEQGQI　リンク先の商品"><img src="https://m.media-amazon.com/images/I/71V-KBoSz1L._AC_SX300_.jpg" alt="赤いレトロなマイクと青いPODCASTの文字のネオンサイン" loading="lazy" referrerpolicy="no-referrer"></button></td>
+<td><span class="tag t-pod">Podcastの文字</span><span class="badge r">リンク先の商品</span><b class="name">Podcast（レトロなマイク）</b><span class="brand">MEQGQI</span><p class="memo">比べるための基準です。同じ画像の商品が別の店でも売られていますが、15,131円＋送料697円と高めです。</p></td>
+<td><span class="price">14,526円</span><small>送料無料</small></td>
+<td class="nowrap">57×45cm</td>
+<td class="nowrap">評価なし</td>
+<td class="nowrap">11月20〜23日</td>
+<td><a class="go" href="https://www.amazon.co.jp/dp/B0HMMP2THR" target="_blank" rel="noopener">Amazonで見る ↗</a></td>
+</tr>
+
+<tr>
+<td class="thumb"><button class="shot" type="button" data-full="https://m.media-amazon.com/images/I/71pfSheZBXL._AC_SL1500_.jpg" data-cap="PODCASTバッジ／MEQGQI"><img src="https://m.media-amazon.com/images/I/71pfSheZBXL._AC_SX300_.jpg" alt="マイクとPODCASTの文字をバッジの形にしたネオンサイン" loading="lazy" referrerpolicy="no-referrer"></button></td>
+<td><span class="tag t-pod">Podcastの文字</span><b class="name">PODCASTバッジ</b><span class="brand">MEQGQI（リンク先と同じお店）</span><p class="memo">マイクとPODCASTの文字をバッジの形にまとめたデザイン。リンク先とほぼ同じ値段です。</p></td>
+<td><span class="price">14,960円</span><small>送料無料</small></td>
+<td class="nowrap">約50cm</td>
+<td class="nowrap">評価なし</td>
+<td class="nowrap">11月20〜23日</td>
+<td><a class="go" href="https://www.amazon.co.jp/dp/B0H73V3G6Y" target="_blank" rel="noopener">Amazonで見る ↗</a></td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<h2>選ぶときに気をつけること</h2>
+<ul class="points">
+  <li><b>同じデザインが、店によって倍の値段で売られていることがあります。</b>たとえば「LIVE ON AIR（丸の中にマイク）」は3,799円と7,798円の店がありました。気に入ったものは、画像が同じでもっと安い商品がないか探してから買うのがおすすめです。楽天にも同じ商品がありましたが、4,700〜6,600円でAmazonより高めでした。</li>
+  <li><b>大きさを確認してください。</b>リンク先の商品は57×45cmです。30cm台の商品はひと回り小さくなります。配信の背景で大きく映したいなら、40cm以上のものが目安です。</li>
+  <li><b>商品の写真は、CGで作ったイメージが多いです。</b>実物は写真より光が弱く見えたり、後ろの透明な板が見えたりします。評価が多い商品は、買った人の写真で実物を確かめられます。</li>
+  <li><b>「評価なし」の商品は、出品されて間もない商品です。</b>デザインは良くても、実物の評判はまだ分かりません。</li>
+  <li><b>動画に映すときは、明るさを最大にして試し撮りしてください。</b>明るさを下げる機能付きの商品は、暗くするとカメラに横縞やちらつきが出ることがあります。</li>
+  <li><b>アメリカから届く商品</b>（Duxilink・FAXFSIGN）は、届くまでに日数がかかり、輸入の手数料が加わる場合があります。</li>
+</ul>
+
+<footer>
+<p>値段・評価・届く日は、2026年11月10日にAmazon.co.jpで確認したものです。値段はよく変わるため、注文前に商品ページで確認してください。届く日は、確認した日に注文した場合の目安です。</p>
+<p>画像は各商品ページの画像を、Amazonのサーバーから読み込んで表示しています。</p>
+</footer>
+</div>
+
+<dialog id="viewer">
+  <img id="viewer-img" alt="" referrerpolicy="no-referrer">
+  <div class="bar"><span id="viewer-cap"></span><button type="button" id="viewer-close">閉じる</button></div>
+</dialog>
+
+<script>
+(function () {
+  var dlg = document.getElementById('viewer');
+  var img = document.getElementById('viewer-img');
+  var cap = document.getElementById('viewer-cap');
+  document.querySelectorAll('[data-full]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      img.src = btn.getAttribute('data-full');
+      img.alt = btn.getAttribute('data-cap') || '';
+      cap.textContent = btn.getAttribute('data-cap') || '';
+      dlg.showModal();
+    });
+  });
+  document.getElementById('viewer-close').addEventListener('click', function () { dlg.close(); });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+})();
+</script>
+</body>
+</html>
